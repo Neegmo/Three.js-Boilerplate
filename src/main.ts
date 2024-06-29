@@ -1,6 +1,6 @@
 import './style.css'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+// import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 
 // Klasicna scena u Three.js
@@ -146,7 +146,7 @@ function onPointerMove(event: MouseEvent | TouchEvent) {
 }
 
 // Standardni OnPointerUp event, vodi racuna o tome da li je pointer pritisnut na ekranu
-function onPointerUp(event: MouseEvent | TouchEvent) {
+function onPointerUp() {
   pointerisDown = false
 }
 
