@@ -17,6 +17,8 @@ const renderer = new THREE.WebGLRenderer()
 renderer.setSize(window.innerWidth, window.innerHeight)
 document.body.appendChild(renderer.domElement)
 
+let gameIsActive = true
+
 // OrbitControls za debuging, kad je odkomentarisano mozes da se kreces po sceni uz pomoc misa
 // new OrbitControls(camera, renderer.domElement)
 
@@ -124,6 +126,10 @@ let previousMousePosition = {
 function onPointerDown(event: MouseEvent | TouchEvent) {
   pointerisDown = true
   previousMousePosition.x = (event as MouseEvent).clientX || (event as TouchEvent).touches[0].clientX
+
+  if(!gameIsActive) {
+    window.location.reload();
+  }
 }
 
 // Standardni OnPointerDown event, sluzi za pomeranje platformi levo desno
@@ -234,10 +240,10 @@ function updateScore() {
 
 // Funkcija resetuje igru ako lopta padne ispod platformi
 // odnosno ako igrac promasi platforme
-function reloadIfBallBelowThreshold() {
+function pauseIfBallBelowThreshold() {
   if (ball.position.y < -5) {
     ballVelocity = 30
-    window.location.reload();
+    gameIsActive = false
   }
 }
 
@@ -255,6 +261,8 @@ function reloadIfBallBelowThreshold() {
 // Sa ovim u vidu animate finkcija u slucaju ovog projekata u svakom frejmu radi sledece:
 
 function animate() {
+  if ( !gameIsActive) return
+
   requestAnimationFrame(animate)
 
   // Simulira ubrzanje gravitacije i tu gravitaciju primenjuje na lopti
@@ -270,7 +278,7 @@ function animate() {
 
   // Proverava da li su platforme promasene
   // i reaguje u skladu sa kodom
-  reloadIfBallBelowThreshold()
+  pauseIfBallBelowThreshold()
 
   // Iscrtava reprezentaciju 3D scene po canvasu
   renderer.render(scene, camera)
