@@ -137,7 +137,7 @@ function onPointerMove(event: MouseEvent | TouchEvent) {
     const deltaX = currentX - previousMousePosition.x
 
     //Azurira poziciju platformi u skladu sa pomeranjem pointera
-    obstaclesGroup.position.x += deltaX * 0.03
+    obstaclesGroup.position.x += deltaX * 0.1
 
     //postavlja novu inicijalnu tacku pointera
     previousMousePosition.x = currentX
